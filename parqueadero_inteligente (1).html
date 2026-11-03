@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Presentación del proyecto escolar de robótica: Parqueadero Inteligente.">
+<title>Parqueadero Inteligente | Proyecto de Robótica</title>
+<style>
+:root{--bg:#081321;--panel:#102238;--panel2:#142b43;--cyan:#36d6e7;--green:#50e39a;--red:#ff6677;--text:#edf6ff;--muted:#b6c7d8;--line:#28445f}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:10;background:rgba(8,19,33,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1120px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font-weight:800;letter-spacing:.4px}.brand span{color:var(--cyan)}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
+nav a:hover{color:var(--cyan)}
+.wrap{max-width:1120px;margin:auto;padding:0 22px}
+.hero{padding:86px 0 72px;background:radial-gradient(ellipse at 80% 25%,#123d59 0,transparent 42%),linear-gradient(135deg,#081321,#0d2034)}
+.eyebrow{color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.78rem}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.05;margin:14px 0 20px;max-width:760px}
+h1 span{color:var(--cyan)}
+.lead{max-width:700px;color:var(--muted);font-size:1.12rem}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+.visual{background:linear-gradient(150deg,#17334c,#0c1b2c);border:1px solid #31516b;border-radius:24px;padding:24px;min-height:280px;display:grid;place-items:center;box-shadow:0 20px 60px #0005}
+.parking{width:100%;max-width:350px;height:210px;position:relative;border:2px dashed #63809a;border-radius:12px;background:repeating-linear-gradient(90deg,transparent 0 68px,#ffffff12 69px 71px)}
+.car{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:118px;height:66px;border-radius:20px 20px 13px 13px;background:linear-gradient(135deg,#36d6e7,#1685aa);box-shadow:0 10px 25px #0007}
+.car:before{content:"";position:absolute;left:22px;top:-13px;width:74px;height:27px;border-radius:12px 12px 3px 3px;background:#8cebf2}
+.wheel{position:absolute;bottom:-6px;width:22px;height:13px;background:#07111c;border-radius:5px}.w1{left:17px}.w2{right:17px}
+.barrier{position:absolute;right:8px;top:28px;width:12px;height:105px;background:#f1f6fa;border-radius:8px;transform:rotate(48deg);transform-origin:bottom center;box-shadow:0 0 0 4px #ff667733}
+.sensor{position:absolute;left:12px;top:14px;width:30px;height:20px;border-radius:6px;background:#50e39a;box-shadow:0 0 18px #50e39a88}
+.visual small{display:block;text-align:center;color:var(--muted);margin-top:14px}
+section{padding:70px 0}
+.section-head{max-width:760px;margin-bottom:28px}
+h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.15;margin:8px 0 12px}
+.sub{color:var(--muted);margin:0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:22px}
+.card h3{margin:8px 0 7px}.card p{color:var(--muted);margin:0}
+.icon{font-size:1.8rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.highlight{background:linear-gradient(135deg,#10334a,#102238);border:1px solid #2b6478;border-radius:20px;padding:28px}
+.highlight p{color:var(--muted)}
+.steps{counter-reset:step;display:grid;gap:13px}
+.step{counter-increment:step;display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.step:before{content:counter(step);flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#174c62;color:var(--cyan);font-weight:800}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.person{background:var(--panel);border:1px solid var(--line);padding:20px;border-radius:16px}
+.avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#17475a;color:var(--cyan);font-weight:800;font-size:1.15rem}
+.person h3{font-size:1rem;margin:13px 0 5px}.person p{font-size:.9rem;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);text-align:center}
+.tag{display:inline-block;padding:5px 10px;border-radius:20px;background:#143b4d;color:var(--cyan);font-size:.78rem;font-weight:700;margin:4px 5px 0 0}
+.note{font-size:.88rem;color:var(--muted);margin-top:18px}
+@media(max-width:800px){.hero-grid,.two{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.team{grid-template-columns:repeat(2,1fr)}nav{gap:10px;font-size:.8rem}}
+@media(max-width:520px){.cards,.team{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero{padding:58px 0 48px}section{padding:52px 0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="#inicio">ROBO<span>TEC</span> · PROYECTO</a>
+    <nav aria-label="Navegación principal">
+      <a href="#proyecto">Proyecto</a><a href="#componentes">Componentes</a><a href="#funcionamiento">Funcionamiento</a><a href="#importancia">Importancia</a><a href="#equipo">Equipo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Proyecto escolar de robótica</div>
+      <h1>Parqueadero <span>Inteligente</span></h1>
+      <p class="lead">Una propuesta tecnológica que utiliza sensores y automatización para controlar el acceso de vehículos mediante una barrera automática.</p>
+      <div style="margin-top:22px"><a class="tag" href="#componentes">Sensores</a><a class="tag" href="#funcionamiento">Automatización</a><a class="tag" href="#equipo">Trabajo en equipo</a></div>
+    </div>
+    <div class="visual" aria-label="Ilustración de un vehículo y una barrera automática">
+      <div>
+        <div class="parking"><div class="sensor"></div><div class="car"><i class="wheel w1"></i><i class="wheel w2"></i></div><div class="barrier"></div></div>
+        <small>Representación ilustrativa del acceso automatizado</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyecto">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">01 · Conoce la idea</div><h2>¿Qué es un parqueadero inteligente?</h2>
+      <p class="sub">Es un sistema automatizado diseñado para facilitar el control de entrada de vehículos a un estacionamiento. En este proyecto, un sensor ultrasónico detecta la proximidad de un objeto o vehículo y envía la información al Arduino, que controla un servomotor para mover la barrera.</p>
+    </div>
+    <div class="two">
+      <div class="highlight"><h3>Objetivo del proyecto</h3><p>Construir un prototipo que demuestre cómo la electrónica y la programación pueden utilizarse para automatizar una tarea cotidiana, como controlar el acceso a un parqueadero.</p></div>
+      <div class="highlight"><h3>¿Qué busca demostrar?</h3><p>La integración entre sensores, circuitos y código: el sistema recibe información del entorno, la procesa y realiza una acción automática.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="componentes" style="background:#0b1929">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">02 · Materiales</div><h2>Componentes utilizados</h2><p class="sub">Cada elemento cumple una función importante para que el prototipo pueda detectar y responder.</p></div>
+    <div class="cards">
+      <article class="card"><div class="icon">🧠</div><h3>Arduino Uno</h3><p>Es la placa programable que funciona como el cerebro del sistema. Recibe los datos del sensor y controla el servomotor y los LED.</p></article>
+      <article class="card"><div class="icon">📡</div><h3>Sensor ultrasónico HC-SR04</h3><p>Emite ondas ultrasónicas y calcula la distancia de un objeto. Permite detectar cuando un vehículo se aproxima a la barrera.</p></article>
+      <article class="card"><div class="icon">⚙️</div><h3>Servomotor SG90</h3><p>Convierte la señal del Arduino en movimiento y permite subir o bajar la barrera del parqueadero.</p></article>
+      <article class="card"><div class="icon">🟢</div><h3>LED verde</h3><p>Sirve como indicador visual de que el acceso está libre o la barrera permanece cerrada, según la programación.</p></article>
+      <article class="card"><div class="icon">🔴</div><h3>LED rojo</h3><p>Indica que se detectó un vehículo cerca y que el sistema activa la apertura de la barrera.</p></article>
+      <article class="card"><div class="icon">🔌</div><h3>Protoboard y resistencias</h3><p>La protoboard facilita las conexiones sin soldadura. Las resistencias de 220 Ω limitan la corriente que pasa por los LED.</p></article>
+    </div>
+    <p class="note">También se utilizan cables de conexión y un cable USB o una fuente adecuada para alimentar y programar la placa.</p>
+  </div>
+</section>
+
+<section id="funcionamiento">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">03 · Proceso</div><h2>¿Cómo funciona?</h2><p class="sub">El prototipo sigue una secuencia sencilla de detección y respuesta automática.</p></div>
+    <div class="steps">
+      <div class="step"><div><strong>Detección:</strong> el sensor ultrasónico mide la distancia entre el sistema y el vehículo que se aproxima.</div></div>
+      <div class="step"><div><strong>Procesamiento:</strong> el Arduino recibe la medición y la compara con la distancia establecida en el programa.</div></div>
+      <div class="step"><div><strong>Señal visual:</strong> los LED verde y rojo muestran el estado indicado por la programación.</div></div>
+      <div class="step"><div><strong>Movimiento:</strong> cuando se cumple la condición programada, el Arduino envía una señal al servomotor para abrir o cerrar la barrera.</div></div>
+    </div>
+    <p class="note">El comportamiento exacto —por ejemplo, la distancia que activa la barrera y el estado de cada LED— depende de los valores configurados en el código del Arduino.</p>
+  </div>
+</section>
+
+<section id="importancia" style="background:#0b1929">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">04 · Aplicaciones</div><h2>¿Para qué sirve y qué importancia tiene?</h2><p class="sub">Este proyecto permite comprender cómo una solución robótica puede ayudar a realizar tareas de manera más ordenada y automatizada.</p></div>
+    <div class="cards">
+      <article class="card"><div class="icon">🚗</div><h3>Control de acceso</h3><p>Demuestra cómo se puede automatizar la entrada y salida de vehículos en un estacionamiento.</p></article>
+      <article class="card"><div class="icon">⏱️</div><h3>Agilidad</h3><p>Un sistema automático puede reducir la necesidad de levantar una barrera manualmente.</p></article>
+      <article class="card"><div class="icon">🛡️</div><h3>Organización</h3><p>Los indicadores y la barrera ayudan a comunicar el estado del acceso de forma visual.</p></article>
+      <article class="card"><div class="icon">💡</div><h3>Aprendizaje tecnológico</h3><p>Permite practicar programación, electrónica, conexiones y resolución de problemas.</p></article>
+      <article class="card"><div class="icon">🌐</div><h3>Uso en la vida real</h3><p>Conceptos similares se aplican en estacionamientos, edificios, centros comerciales y zonas de acceso controlado.</p></article>
+      <article class="card"><div class="icon">🤝</div><h3>Trabajo colaborativo</h3><p>El desarrollo requiere coordinación, distribución de tareas y comunicación entre los integrantes.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">05 · Nuestro equipo</div><h2>Integrantes y responsabilidades</h2><p class="sub">Cada integrante colaboró desde una responsabilidad específica para desarrollar el proyecto.</p></div>
+    <div class="team">
+      <article class="person"><div class="avatar">BA</div><h3>Bladimir Alexander</h3><p>Se encargó del kit y de los materiales necesarios para el proyecto.</p></article>
+      <article class="person"><div class="avatar">AL</div><h3>Adrián López</h3><p>Se encargó de copiar y registrar los resultados obtenidos.</p></article>
+      <article class="person"><div class="avatar">DV</div><h3>Daniel Vásquez</h3><p>Se encargó de realizar el ensamblaje del circuito.</p></article>
+      <article class="person"><div class="avatar">JB</div><h3>José Bryan</h3><p>Se encargó de elaborar el documento del proyecto.</p></article>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="highlight">
+      <div class="eyebrow">06 · Reflexión final</div>
+      <h2>Conclusión</h2>
+      <p>El parqueadero inteligente es un ejemplo de cómo la robótica puede aplicarse a situaciones de la vida cotidiana. Mediante el uso de Arduino, un sensor ultrasónico, un servomotor y señales luminosas, el prototipo demuestra el proceso de detectar, procesar información y ejecutar una acción. Además, permitió fortalecer conocimientos de electrónica, programación y trabajo en equipo.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Proyecto de Robótica · Parqueadero Inteligente<br><span style="font-size:.85rem">Diseñado como presentación educativa del proyecto.</span></div></footer>
+</body>
+</html>
